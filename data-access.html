@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RLBPPredDB data access and update guide" />
+  <title>RLBPPredDB | Data Access</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="page-wrap">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">RLBP</span>
+        <span class="brand-name">RLBPPredDB</span>
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="annotation.html">Annotation</a>
+        <a class="active" href="data-access.html">Data Access</a>
+        <a href="help.html">Help</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel reveal">
+        <div class="panel-head">
+          <h2>Data Access</h2>
+          <p>This page documents where RLBPPredDB database files are stored.</p>
+        </div>
+        <div class="card">
+          <h3>Database Location</h3>
+          <ul class="list-tight">
+            <li>Local runtime files: <code>rlbp_annotations.json</code>, <code>rlbp_annotations.csv</code>, and <code>rlbp_prediction_template.csv</code></li>
+            <li>Keep these files in the repository root beside the HTML, CSS, and JavaScript files.</li>
+          </ul>
+
+          <h3>Database Files</h3>
+          <ul class="list-tight">
+            <li><a href="rlbp_annotations.json" target="_blank" rel="noopener noreferrer">rlbp_annotations.json</a></li>
+            <li><a href="rlbp_annotations.csv" target="_blank" rel="noopener noreferrer">rlbp_annotations.csv</a></li>
+            <li><a href="rlbp_prediction_template.csv" target="_blank" rel="noopener noreferrer">rlbp_prediction_template.csv</a></li>
+          </ul>
+
+          <h3>Scope</h3>
+          <ul class="list-tight">
+            <li>Current species: <strong>Human</strong> and <strong>Mouse</strong>.</li>
+            <li>The packaged runtime database contains 37,077 reviewed records: 20,075 human and 17,002 mouse proteins.</li>
+          </ul>
+
+          <h3>Local Deployment</h3>
+          <ul class="list-tight">
+            <li>No backend service, build step, external folder, or private host is required.</li>
+            <li>The annotation page reads <code>rlbp_annotations.json</code> relative to the local site.</li>
+            <li>Start a local HTTP server as described in the repository README; do not open the HTML files directly with a <code>file://</code> URL.</li>
+          </ul>
+
+          <h3>Contact</h3>
+          <ul class="list-tight">
+            <li>Maintainer: RLBPPredDB Team</li>
+            <li>Email: rlbppreddb@outlook.com</li>
+            <li>GitHub Repository: <a href="https://github.com/callmest/RLBPPredDB" target="_blank" rel="noopener noreferrer">https://github.com/callmest/RLBPPredDB</a></li>
+          </ul>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>RLBPPredDB • Rloop Binding Protein Resources</p>
+  </footer>
+</body>
+</html>
