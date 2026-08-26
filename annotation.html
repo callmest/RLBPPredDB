@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RLBPPredDB annotation browser" />
+  <title>RLBPPredDB | Annotation</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="page-wrap">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">RLBP</span>
+        <span class="brand-name">RLBPPredDB</span>
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a class="active" href="annotation.html">Annotation</a>
+        <a href="data-access.html">Data Access</a>
+        <a href="help.html">Help</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel reveal">
+        <div class="panel-head">
+          <h2>Search Method</h2>
+        </div>
+        <div class="card search-method">
+          <p>
+            Keyword search matches <code>uniprot_id</code>, <code>gene_name</code>, <code>gene_names_all</code>, <code>protein_name</code>, <code>functional_annotation</code>, and <code>gene_description</code>. You can combine species, reviewed state, confidence threshold, sort mode, and exact UniProt ID matching. Results are paginated for stable browsing on large datasets.
+          </p>
+        </div>
+      </section>
+
+      <section class="panel reveal">
+        <div class="panel-head">
+          <h2>RLBP Annotation Browser</h2>
+          <p id="result-summary">Loading annotation database...</p>
+        </div>
+        <div class="card">
+          <div class="annotation-tools annotation-tools-db">
+            <input id="search" type="search" placeholder="Search UniProt ID / gene / protein / annotation" />
+
+            <select id="species-filter">
+              <option value="all">All Species</option>
+              <option value="Human">Human</option>
+              <option value="Mouse">Mouse</option>
+            </select>
+
+            <select id="reviewed-filter">
+              <option value="all">All Review Status</option>
+              <option value="reviewed">Reviewed Only</option>
+              <option value="unreviewed">Unreviewed Only</option>
+            </select>
+
+            <input id="min-confidence" type="number" min="0" max="1" step="0.01" value="0" title="Min confidence" placeholder="Min confidence" />
+
+            <select id="sort-by">
+              <option value="confidence_desc">Sort: Confidence High-Low</option>
+              <option value="confidence_asc">Sort: Confidence Low-High</option>
+              <option value="length_desc">Sort: Length High-Low</option>
+              <option value="length_asc">Sort: Length Low-High</option>
+              <option value="id_asc" selected>Sort: UniProt A-Z</option>
+            </select>
+
+            <label class="inline-check" for="exact-id">
+              <input id="exact-id" type="checkbox" />
+              Exact UniProt ID
+            </label>
+          </div>
+
+          <div class="pagination-row">
+            <div class="pager-main">
+              <button id="prev-page" class="btn ghost" type="button">Prev &lt;</button>
+              <span id="page-info">Page 1 / 1</span>
+              <button id="next-page" class="btn ghost" type="button">Next &gt;</button>
+            </div>
+            <div class="pager-size">
+              <label for="page-size">Rows/Page</label>
+              <select id="page-size">
+                <option value="20">20</option>
+                <option value="50" selected>50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>UniProt ID</th>
+                  <th>Species</th>
+                  <th>Gene</th>
+                  <th>Protein</th>
+                  <th>Confidence</th>
+                  <th>Reviewed</th>
+                  <th>Length</th>
+                  <th>Links</th>
+                </tr>
+              </thead>
+              <tbody id="annotation-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>RLBPPredDB • Rloop Binding Protein Resources</p>
+  </footer>
+
+  <script src="annotation.js"></script>
+</body>
+</html>

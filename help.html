@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RLBPPredDB help and common questions" />
+  <title>RLBPPredDB | Help</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="page-wrap">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">RLBP</span>
+        <span class="brand-name">RLBPPredDB</span>
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="annotation.html">Annotation</a>
+        <a href="data-access.html">Data Access</a>
+        <a class="active" href="help.html">Help</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel reveal">
+        <div class="panel-head">
+          <h2>Help</h2>
+          <p>Common questions and quick answers for using RLBPPredDB.</p>
+        </div>
+
+        <div class="card">
+          <h3>1. What is RLBPPredDB?</h3>
+          <p>RLBPPredDB is an integrated database portal for R-loop binding protein (RLBP) prediction resources. On this website, you can access proteome-level prediction records, confidence scores, functional annotations, species-filtered browsing, and downloadable database files for local analysis.</p>
+
+          <h3>2. Which species are currently included in RLBPPredDB?</h3>
+          <p>The current database includes whole-proteome RLBP prediction data for Human (<em>Homo sapiens</em>) and Mouse (<em>Mus musculus</em>).</p>
+
+          <h3>3. What does the confidence score mean?</h3>
+          <p>The confidence score is the model-predicted probability (0 to 1) that a protein is an RLBP. A higher score indicates a higher likelihood of R-loop binding.</p>
+
+          <h3>4. What confidence threshold is recommended for high-confidence candidates?</h3>
+          <p>A threshold of 0.85 is recommended as the primary cutoff. It provides a practical balance between controlling false positives and retaining a useful number of candidates.</p>
+
+          <h3>5. Why can I not find some specific UniProt proteins in the database?</h3>
+          <p>During data cleaning, proteins shorter than 50 amino acids and proteins without usable 3D structure files in PDB or AlphaFold were excluded.</p>
+
+          <h3>6. What is the source of the functional annotation field?</h3>
+          <p>Functional annotations are primarily integrated from UniProt protein naming and gene annotation fields, with supporting evidence cross-referenced from GO, InterPro, and Pfam domain resources.</p>
+
+          <h3>7. What is the core technical framework of the RLBPPred model?</h3>
+          <p>The model uses a two-stage architecture with an upstream encoder and downstream classifier: SaProt-650M-AF2 extracts sequence-structure features, and a balanced-sampling soft-voting ensemble MLP performs final classification.</p>
+
+          <h3>8. How accurate is the RLBPPred model?</h3>
+          <p>The best model achieved an AUROC of 0.9925 and an AUPRC of 0.9264 on an independent validation set, outperforming traditional random forest methods based on hand-crafted features.</p>
+
+          <h3>9. Have high-scoring candidates been experimentally validated?</h3>
+          <p>Yes. High-scoring candidates such as LIG4 and IGHMBP2 were validated by S9.6 antibody immunoprecipitation with RNase H sensitivity assays, supporting their physical association with R-loops.</p>
+
+          <h3>10. Can I download raw data, and do I need a backend server to use this database?</h3>
+          <p>Yes. Data files are available on the Data Access page in JSON and CSV formats for local analysis. No backend service is required for browsing and filtering; RLBPPredDB uses a lightweight static-page architecture served from the user's own computer.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>RLBPPredDB • Rloop Binding Protein Resources</p>
+  </footer>
+</body>
+</html>
