@@ -1,0 +1,3 @@
+protein_id,sequence_length,model,score,label,timestamp
+example_human_001,317,ensemble,0.8621,High-confidence RLBP candidate,2026-03-21T00:00:00Z
+example_mouse_001,309,saprot,0.6124,Medium-confidence RLBP candidate,2026-03-21T00:00:00Z

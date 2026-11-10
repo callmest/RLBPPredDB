@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="RLBPPredDB help and common questions" />
+  <title>RLBPPredDB | Help</title>
+  <link rel="stylesheet" href="style.css?v=academic-20261110" />
+</head>
+<body>
+  <div class="grain"></div>
+  <div class="page-wrap">
+    <header class="site-header">
+      <a class="brand" href="index.html">
+        <span class="brand-mark">RLBP</span>
+        <span class="brand-name">RLBPPredDB</span>
+      </a>
+      <nav>
+        <a href="index.html">Home</a>
+        <a href="annotation.html">Annotation</a>
+        <a href="data-access.html">Data Access</a>
+        <a class="active" href="help.html">Help</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="panel reveal">
+        <div class="panel-head">
+          <h2>Help</h2>
+          <p>Common questions and quick answers for using RLBPPredDB.</p>
+        </div>
+
+        <div class="card">
+          <h3>1. What is RLBPPredDB?</h3>
+          <p>RLBPPredDB provides protein annotations, RLBPPred prediction scores, species-filtered browsing, and downloadable database files for local analysis. Scores are produced by the SaProt-650M-AF2 + MLP ensemble trained on the strictly curated benchmark.</p>
+
+          <h3>2. Which species are currently included in RLBPPredDB?</h3>
+          <p>The database retains 37,077 reviewed annotation records: 20,075 human (<em>Homo sapiens</em>) and 17,002 mouse (<em>Mus musculus</em>) proteins. Strict-model scores are available for 37,077 records (20,075 human and 17,002 mouse). All retained human records have a strict-model score; historical model scores are not reused.</p>
+
+          <h3>3. What does the prediction score mean?</h3>
+          <p>The prediction score is the mean output probability of the 300-member balanced MLP ensemble. It ranks proteins for follow-up and is not an experimentally established probability of direct R-loop binding. The downloadable field retains the name <code>confidence</code> for compatibility. Missing scores are JSON <code>null</code> or blank CSV cells, not zero.</p>
+
+          <h3>4. What threshold defines the human candidate set?</h3>
+          <p>The human candidate-discovery threshold is a prediction score of at least 0.98, selected to meet an empirical false-positive-rate target of at most 0.1% on 1,821 held-out human negatives (one false positive; observed FPR 0.0549%). Applying this threshold to the 5,640-protein untrained human pool yields 401 candidates. Filtering the full human database at 0.98 is not the same selection: 1,344 scored records meet that threshold, including known and potential positives. The human FPR target has not been established for mouse proteins; mouse scores require species-specific calibration.</p>
+
+          <h3>5. Why is a protein missing or marked Not scored?</h3>
+          <p>This release uses a fixed set of reviewed UniProt annotation records and does not contain every current UniProt entry. A retained record is marked <q>Not scored</q> when it is absent from the available strict-model prediction output; this does not imply a negative prediction. Clear the minimum-score filter, or set it to zero, to browse these records.</p>
+
+          <h3>6. What is the source of the functional annotation field?</h3>
+          <p>The browser's functional-annotation field is derived from UniProt protein names and gene annotations. The manuscript's GO, domain, and other downstream analyses are separate from this compact browser table. Links connect each record to the corresponding external protein resources.</p>
+
+          <h3>7. What is the core technical framework of the RLBPPred model?</h3>
+          <p>Frozen SaProt-650M-AF2 embeddings are paired with a 300-member MLP ensemble. The curated human benchmark contains 376 positives and 9,109 negatives; after the stratified split, each member uses all 301 training positives and 301 randomly sampled training negatives. Output probabilities are averaged by soft voting.</p>
+
+          <h3>8. How accurate is the RLBPPred model?</h3>
+          <p>The strict SaProt-650M-AF2 + MLP ensemble achieved AUROC 0.993 and AUPRC 0.927 on the held-out set of 75 human positives and 1,821 human negatives. These benchmark metrics do not imply the same calibration or error rate for every protein group or species.</p>
+
+          <h3>9. Have high-scoring candidates been experimentally validated?</h3>
+          <p>LIG4 and IGHMBP2 were recovered by S9.6 immunoprecipitation with RNase H-sensitive signals. These experiments support association with RNA:DNA hybrid-containing complexes but do not establish direct R-loop binding. The 401 predicted candidates have not all been experimentally validated.</p>
+
+          <h3>10. Can I download raw data, and do I need a backend server to use this database?</h3>
+          <p>Yes. Data files are available on the Data Access page in JSON and CSV formats for local analysis. No backend service is required for browsing and filtering; RLBPPredDB uses a lightweight static-page architecture served from the user's own computer.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer>
+    <p>RLBPPredDB • Rloop Binding Protein Resources</p>
+  </footer>
+</body>
+</html>
