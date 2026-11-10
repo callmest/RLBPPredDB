@@ -72,12 +72,12 @@ As a functional check, search for `P11387`, select `Human`, set the minimum
 prediction score to `0.98`, and enable `Exact UniProt ID`. The expected result
 is TOP1 with an RLBPPred prediction score of `0.999990`.
 
-For the manuscript browsing example, search for `DNA topoisomerase`, select
-`Human`, set the minimum score to `0.98`, disable exact-ID matching, and sort
-scores from high to low. Six records are returned, in this order: TOP2B,
-TOP2A, TOP1, TOPBP1, TOP3A, and TOP3B. This illustrates database retrieval,
-not six newly discovered candidates: only TOP3B belongs to the 401-protein
-untrained-pool candidate set.
+The manuscript browsing example uses the default annotation view: leave the
+keyword field empty, select all species and review statuses, set the minimum
+score to `0`, leave exact-ID matching disabled, and sort UniProt accessions
+from A to Z with 50 rows per page. Figure 6 shows the first six records on
+page 1. All six displayed records have prediction scores. This unfiltered
+browsing view is distinct from the frozen 401-protein candidate set.
 
 The packaged JSON data can also be checked from the repository root:
 
