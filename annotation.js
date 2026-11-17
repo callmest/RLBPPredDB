@@ -14,6 +14,42 @@ const pageSizeSelect = document.getElementById("page-size");
 let annotations = [];
 let filteredRows = [];
 let currentPage = 1;
+let afdbAvailability = null;
+
+async function loadAfdbAvailability() {
+  try {
+    const response = await fetch("afdb_links.json", { cache: "no-cache" });
+    if (!response.ok) throw new Error(`HTTP ${response.status}`);
+    const snapshot = await response.json();
+    if (snapshot.schema_version !== 1 ||
+        !Array.isArray(snapshot.available) || !Array.isArray(snapshot.not_found) ||
+        !Array.isArray(snapshot.unverified)) throw new Error("Invalid AFDB availability snapshot");
+    return {
+      available: new Set(snapshot.available),
+      notFound: new Set(snapshot.not_found),
+      checkedAt: String(snapshot.checked_at || "").slice(0, 10),
+    };
+  } catch (error) {
+    console.warn(`AFDB links could not be verified: ${error.message}`);
+    return null;
+  }
+}
+
+function renderAfdbLink(item) {
+  const id = String(item.uniprot_id || "");
+  const expectedUrl = `https://alphafold.ebi.ac.uk/entry/${encodeURIComponent(id)}`;
+  const sourceUrl = String(item.alphafold2_page_source || "");
+  if (afdbAvailability?.available.has(id) && sourceUrl === expectedUrl) {
+    const title = `AlphaFold DB entry for ${id}; availability checked ${afdbAvailability.checkedAt}. Structure coverage may be partial.`;
+    return `<a href="${escapeHtml(sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="${escapeHtml(`AlphaFold DB entry for ${id} (opens in a new tab)`)}" title="${escapeHtml(title)}">AFDB</a>`;
+  }
+  if (afdbAvailability?.notFound.has(id)) {
+    const title = `No AlphaFold DB entry found for this accession (${id}) when checked ${afdbAvailability.checkedAt}; this does not imply that no structure exists elsewhere.`;
+    return `<span class="afdb-status" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}">AFDB —</span>`;
+  }
+  const title = `AlphaFold DB availability has not been verified for ${id}; no structure link is asserted.`;
+  return `<span class="afdb-status" title="${escapeHtml(title)}" aria-label="${escapeHtml(title)}">AFDB ?</span>`;
+}
 
 function normalize(text) {
   return String(text || "").toLowerCase().trim();
@@ -131,7 +167,7 @@ function renderPage() {
             <td title="${conf === null ? "No strict-model score is available in this release" : `raw: ${conf}`}">${confText}</td>
             <td>${reviewedText}</td>
             <td>${lenText}</td>
-            <td>${uniprotLink}</td>
+            <td><span class="external-links">${uniprotLink}${renderAfdbLink(item)}</span></td>
           </tr>
         `;
       })
@@ -170,9 +206,13 @@ nextPageBtn.addEventListener("click", () => {
 
 async function init() {
   try {
-    const response = await fetch("rlbp_annotations.json");
+    const [response, availability] = await Promise.all([
+      fetch("rlbp_annotations.json"),
+      loadAfdbAvailability(),
+    ]);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     annotations = await response.json();
+    afdbAvailability = availability;
 
     // Ensure reviewed is boolean if source data mixed representation.
     annotations = annotations.map((item) => ({

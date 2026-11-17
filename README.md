@@ -1,6 +1,8 @@
 # RLBPPredDB
 
-RLBPPredDB is a static, local web application for browsing proteome-wide
+**Online database:** [https://callmest.github.io/RLBPPredDB/](https://callmest.github.io/RLBPPredDB/)
+
+RLBPPredDB is a static web application for browsing proteome-wide
 R-loop-binding protein predictions and annotations. The current release
 contains 37,077 reviewed UniProt records: 20,075 human proteins and 17,002
 mouse proteins. Scores from the strictly curated SaProt-650M-AF2 + MLP
@@ -8,8 +10,9 @@ ensemble are available for 37,077 records (20,075 human and 17,002 mouse).
 All retained human annotation records now have strict-model scores;
 historical model scores are not reused.
 
-The application runs entirely in the browser. It does not require a backend,
-a database server, Node.js, or a public website deployment.
+The application runs entirely in the browser without requiring a backend,
+a database server, or Node.js. It can be browsed directly online via GitHub
+Pages or run locally offline.
 
 ## Requirements
 
@@ -119,6 +122,7 @@ TOP1 prediction score: 0.999990
 | `index.html` | Home page |
 | `annotation.html` | Search and filtering interface |
 | `annotation.js` | Client-side loading, filtering, sorting, and pagination |
+| `afdb_links.json` | Dated AlphaFold DB entry-availability snapshot used for external links |
 | `data-access.html` | Download links and data notes |
 | `help.html` | Usage guidance |
 | `style.css` | Website styling |
@@ -145,7 +149,24 @@ The Annotation page supports:
 The full JSON file is approximately 26 MB and is loaded into browser memory.
 Initial loading may therefore take several seconds on slower computers.
 Internet access is not required to browse or filter the packaged data; it is
-needed only when following external UniProt links.
+needed only when following external UniProt or AlphaFold DB (AFDB) links.
+
+The `Links` column displays UniProt and, where an AFDB entry was verified,
+AFDB side by side. AFDB availability is a dated snapshot in `afdb_links.json`,
+not a live browser query. The check uses official UniProtKB AlphaFoldDB
+cross-references, with the official AlphaFold prediction API used for accessions
+absent from those cross-references and for representative records. `AFDB —`
+means no entry was found for that accession at the check date; `AFDB ?` means
+availability was not verified (including when the snapshot cannot be loaded).
+Neither status means that no protein structure exists in other resources.
+The exact check date appears in the link/status tooltip and the snapshot.
+The 14 November 2026 check found AFDB records or official cross-references for
+37,046 of the 37,077 accessions; 31 had no entry returned by the prediction API.
+An available AFDB entry may cover only part of the protein; it does not imply
+full-length coverage or that the linked current structure was used for the
+frozen model's embeddings. Refresh this snapshot when updating the annotation
+database. Prediction scores and the 14-field JSON/CSV data are not changed by
+this link-display feature.
 
 Unscored records remain visible when the minimum score is blank or zero.
 A positive minimum excludes unscored records. In both ascending and descending

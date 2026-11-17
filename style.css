@@ -206,6 +206,8 @@ td:nth-child(1), td:nth-child(3) { color: var(--accent); font-weight: 600; }
 td:nth-child(4) { min-width: 190px; width: 34%; overflow-wrap: anywhere; }
 td:nth-child(5), td:nth-child(7) { font-variant-numeric: tabular-nums; }
 td:nth-child(8) a { font-size: 0.9rem; }
+.external-links { display: inline-flex; align-items: baseline; gap: 0.75rem; }
+.afdb-status { color: var(--ink-soft); font-size: 0.9rem; }
 .empty { padding: 1.25rem; color: var(--ink-soft); text-align: center; }
 .list-tight { margin: 0; padding-left: 1.1rem; }
 .list-tight li + li { margin-top: 0.65rem; }
